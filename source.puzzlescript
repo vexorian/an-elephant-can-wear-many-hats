@@ -1,0 +1,945 @@
+title An Elephant Can Wear Many Hats 0.48
+(Note always before sharing set SOUND_VOL to 0.05 in the HTML)
+( Requires Pancelor's fork : https://pancelor.com/PuzzleScript/editor.html)
+
+(Note remember to thank Tilmann at discord for very usseful bug report.)
+author vexorian
+homepage vexorian.com
+
+
+background_color #000000
+text_color       #EC8C95
+
+(debug)
+
+realtime_interval 0.033333
+(verbose_logging)
+noaction
+
+
+run_rules_on_level_start
+
+enable_level_select
+
+
+(key_repeat_interval 0.15)
+norepeat_action
+(
+zlib License
+
+Copyright (c) 2021, Victor Hugo Soliz Kuncar
+
+This software is provided 'as-is', without any express or implied
+warranty. In no event will the authors be held liable for any damages
+arising from the use of this software.
+
+Permission is granted to anyone to use this software for any purpose,
+including commercial applications, and to alter it and redistribute it
+freely, subject to the following restrictions:
+
+1. The origin of this software must not be misrepresented; you must not
+   claim that you wrote the original software. If you use this software
+   in a product, an acknowledgment in the product documentation would be
+   appreciated but is not required.
+2. Altered source versions must be plainly marked as such, and must not be
+   misrepresented as being the original software.
+3. This notice may not be removed or altered from any source distribution.
+
+)
+
+
+
+
+========
+OBJECTS
+========
+
+Background
+#301114 #210B0E
+01110
+00111
+10011
+11001
+11100
+
+RugBorderU
+#0D210B
+.....
+.000.
+.....
+.....
+.....
+
+RugBorderD
+#0D210B
+.....
+.....
+.....
+.000.
+.....
+
+RugBorderR
+#0D210B
+.....
+...0.
+...0.
+...0.
+.....
+
+RugBorderL
+#0D210B
+.....
+.0...
+.0...
+.0...
+.....
+
+d0
+#301114 #210B0E
+10001
+10101
+10101
+10101
+10001
+
+d1
+#301114 #210B0E
+11011
+10011
+11011
+11011
+10001
+
+d2
+#301114 #210B0E
+10001
+11101
+10001
+10111
+10001
+
+d3
+#301114 #210B0E
+10001
+11101
+10001
+11101
+10001
+
+d4
+#301114 #210B0E
+10101
+10101
+10001
+11101
+11101
+
+d5
+#301114 #210B0E
+10001
+10111
+10001
+11101
+10001
+
+d6
+#301114 #210B0E
+10001
+10111
+10001
+10101
+10001
+
+d7
+#301114 #210B0E
+10001
+11101
+11101
+11101
+11101
+
+d8
+#301114 #210B0E
+10001
+10101
+10001
+10101
+10001
+
+d9
+#301114 #210B0E
+10001
+10101
+10001
+11101
+10001
+
+
+Wall
+#AA3A46 #E04D5C #E06D78
+11111
+11111
+11111
+11111
+11111
+
+WallU
+#AA3A46 #E04D5C #E06D78
+22222
+.....
+.....
+.....
+.....
+
+WallD
+#AA3A46 #E04D5C #E06D78
+.....
+.....
+.....
+.....
+00000
+
+WallR
+#AA3A46 #E04D5C #E06D78
+....0
+....0
+....0
+....0
+....0
+
+WallL
+#AA3A46 #E04D5C #E06D78
+2....
+2....
+2....
+2....
+2....
+
+SensorD
+#5CE04D #AA3A46 #E06D78
+.....
+.....
+..12.
+..0..
+..0..
+
+SensorU
+#5CE04D #AA3A46 #E06D78
+..0..
+..0..
+..12.
+.....
+.....
+
+SensorOffD
+#183914 #AA3A46 #E06D78
+.....
+.....
+..12.
+..0..
+..0..
+
+SensorOffU
+#183914 #AA3A46 #E06D78
+..0..
+..0..
+..12.
+.....
+.....
+
+
+
+
+LaserD
+#5CE04D
+..0..
+..0..
+..0..
+..0..
+..0..
+
+LaserU
+#5CE04D
+..0..
+..0..
+..0..
+..0..
+..0..
+
+BlockedLaserU
+#5CE04D
+..0..
+..0..
+..0..
+.....
+.....
+
+BlockedLaserD
+#5CE04D
+.....
+.....
+..0..
+..0..
+..0..
+
+
+
+PlayerCaught
+white white white white
+.222.
+.111.
+00000
+.000.
+.0.0.
+
+
+
+PlayerN
+#4DE088 #E0884D #4D5CE0
+.222.
+.111.
+00000
+.000.
+.0.0.
+
+
+PlayerL
+#4DE088 #E0884D #4D5CE0
+.222.
+.112.
+0000.
+.000.
+.0.0.
+
+PlayerR
+#4DE088 #E0884D #4D5CE0
+.222.
+.211.
+.0000
+.000.
+.0.0.
+
+PlayerU
+#4DE088 #E0884D #4D5CE0
+.222.
+.222.
+00000
+.000.
+.0.0.
+
+PlayerD
+#4DE088 #E0884D #4D5CE0
+.222.
+.111.
+00000
+.000.
+.0.0.
+
+
+ElephantR
+#626DC7 #8590EA #7682E7 white #E04D5C
+.122.
+01242
+01222
+00032
+0.0.2
+
+
+ElephantTailR
+#626DC7 #8590EA #7682E7 white #E04D5C
+.....
+.....
+....0
+....0
+.....
+
+
+ElephantL
+#626DC7 #8590EA #7682E7 white #E04D5C
+.221.
+24210
+22210
+23000
+2.0.0
+
+
+
+ElephantTailL
+#626DC7 #8590EA #7682E7 white #E04D5C
+.....
+.....
+0....
+0....
+.....
+
+Crate
+#E0884D #E0884D #E6A172 #A26238
+2222.
+20003
+20303
+20003
+.3333
+
+
+PartyHat
+#5CE04D #E0884D #4DE088
+..0..
+..1..
+.211.
+.112.
+00000
+
+FezL
+#E03B4C #5CE04D #E04D5C
+.....
+...1.
+.2221
+.2001
+.200.
+
+FezR
+#E03B4C #5CE04D #E04D5C
+.....
+.1...
+1222.
+1200.
+.200.
+
+Crown
+#5CE04D #4D5CE0 #E04D5C
+..0..
+..1..
+0.0.0
+00200
+00000
+
+
+TopHat
+#532F88 #5C3498 #9A72D5 #A67BE5
+.....
+.111.
+.100.
+.322.
+10000
+
+TopHatD
+#532F88 #5C3498 #9A72D5 #A67BE5
+11111
+.322.
+.100.
+.100.
+.....
+
+
+
+TopLeft
+transparent
+
+Tic0
+transparent
+
+Tic1
+transparent
+
+Tic2
+transparent
+
+Tic3
+transparent
+
+Tic4
+transparent
+
+Tic5
+transparent
+
+Tic6
+transparent
+
+Tic7
+transparent
+
+Tic8
+transparent
+
+Tic9
+transparent
+
+Tic10
+transparent
+
+Tic11
+transparent
+
+PendingMove
+transparent
+
+Happy
+transparent
+
+AllHappy
+transparent
+
+ElephantPush
+transparent
+
+KingElephant
+transparent
+
+ToBeAHat
+transparent
+
+NoHat
+transparent
+
+HatMovedHere
+transparent
+
+NoCrate
+transparent
+
+CrateMovedHere
+transparent
+
+NoLaser
+transparent
+
+LaserAppearedHere
+transparent
+
+
+YesLaser
+transparent
+
+LaserGoneFromHere
+transparent
+
+
+NoHappy
+transparent
+
+NewHappy
+transparent
+
+=======
+LEGEND
+=======
+
+. = Background
+# = Wall
+v = Wall and SensorD
+A = Wall and SensorU
+P = PlayerN
+L = ElephantL
+R = ElephantR
+* = PartyHat
+< = FezL
+> = FezR
+o = Crate
+X = Crown
+T = TopHat and Background
+D = ToBeAHat
+
+0 = d0
+1 = d1
+2 = d2
+3 = d3
+4 = d4
+5 = d5
+6 = d6
+7 = d7
+8 = d8
+9 = d9
+
+Player = PlayerN or PlayerU or PlayerD or PlayerL or PlayerR or PlayerCaught
+
+
+Elephant = ElephantR or ElephantL
+
+ElephantTail = ElephantTailR or ElephantTailL
+
+Fez = FezL or FezR
+Hat = PartyHat or Fez or TopHat or TopHatD or Crown
+
+Tic = Tic0 or Tic1 or Tic2 or Tic3 or Tic4 or Tic5 or Tic6 or Tic7 or Tic8 or Tic9 or Tic10 or Tic11
+TicN3 = Tic1 or Tic2 or Tic4 or Tic5 or Tic7 or Tic8 or Tic10 or Tic11
+TicM3 = Tic0 or Tic3 or Tic6 or Tic9
+TicM2 = Tic0 or Tic2 or Tic4 or Tic6 or Tic8 or Tic10
+TicM6 = Tic0 or Tic6
+TicN6 =         Tic1 or Tic2 or Tic3 or Tic4 or Tic5          or Tic7 or Tic8 or Tic9 or Tic10 or Tic11
+
+
+(NotPlayerMoveTic = Tic1 or Tic3 or Tic5 or Tic7 or Tic9 or Tic11)
+NotPlayerMoveTic = TicN6
+BeforePlayerMoveTic = Tic5 or Tic11
+
+ElephantMoveTic = TicM3
+
+PlayerCanPush = Crate or Hat
+ElephantCanPush = Crate or Hat or Player or Elephant
+
+
+
+Collision = Player or Wall or Elephant or Hat or Crate or PlayerCaught
+
+Sensor = SensorD or SensorU or SensorOffD or SensorOffU
+Laser = LaserU or LaserD
+LaserOriginD = LaserD or SensorD
+LaserOriginU = LaserU or SensorU
+LaserOrigin = LaserOriginD or LaserOriginU
+
+BlockedLaser = BlockedLaserU or BlockedLaserD
+
+=======
+SOUNDS
+=======
+
+SFX0 13852708
+
+TopHatD        create   52774902
+TopHat         create   83750102
+HatMovedHere   create   26850507
+(Crate          cantmove 20219504)
+CrateMovedHere create   92164907
+LaserAppearedHere create 27263108
+LaserGoneFromHere create 4462708
+NewHappy          create 53683103
+
+================
+COLLISIONLAYERS
+================
+
+Background
+RugBorderU
+RugBorderD
+RugBorderL
+RugBorderR
+d0,d1,d2,d3,d4,d5,d6,d7,d8,d9
+Laser
+ElephantTail
+BlockedLaserU
+BlockedLaserd
+Collision, ToBeAHat
+WallU
+WallD
+WallR
+WallL
+Sensor
+TopLeft
+Tic
+PendingMove
+Happy
+AllHappy
+ElephantPush
+KingElephant
+NoHat
+HatMovedHere
+NoCrate
+CrateMovedHere
+NoLaser
+LaserAppearedHere
+YesLaser
+LaserGoneFromHere
+NoHappy
+NewHappy
+
+======
+RULES
+======
+
+(disable action for debug)
+[ action Player ] -> [ Player ]
+
+
+[ moving PlayerCaught  ] -> [ stationary PlayerCaught  ] cancel sfx0
+
+
+[ Tic11 ][ ToBeAHat ] -> [ Tic11 ][ PartyHat ] checkpoint message An Elephant Can Wear Many Hats
+
+
+(Tic Helpers )
+
+[ TopLeft ] -> []
+up    [ Background | ] -> [ action Background | ]
+left  [ Background | ] -> [ action Background | ]
+
+
+[ stationary Background ] -> [ Background TopLeft ]
+
+
+
+
+[ Tic no TopLeft ] -> [ ]
+
+
+
+[ Tic11 ] -> [ ]
+[ Tic10 ] -> [ Tic11 ]
+[ Tic9 ] -> [ Tic10 ]
+[ Tic8 ] -> [ Tic9 ]
+[ Tic7 ] -> [ Tic8 ]
+[ Tic6 ] -> [ Tic7 ]
+[ Tic5 ] -> [ Tic6 ]
+[ Tic4 ] -> [ Tic5 ]
+[ Tic3 ] -> [ Tic4 ]
+[ Tic2 ] -> [ Tic3 ]
+[ Tic1 ] -> [ Tic2 ]
+[ Tic0 ] -> [ Tic1 ]
+[ TopLeft no Tic ] -> [TopLeft Tic0 ]
+
+( Sound helpers )
+[ HatMovedHere ] -> []
+[ NoHat ] -> []
+[ CrateMovedHere ] -> []
+[ NoCrate ] -> []
+[ NoLaser ] -> []
+[ LaserAppearedHere ] -> []
+[ YesLaser ] -> []
+[ LaserGoneFromHere ] -> []
+[ NewHappy ] -> []
+[ NoHappy ] -> []
+
+
+
+[ no Hat ] -> [ NoHat]
+[ no Crate ] -> [ NoCrate ]
+[ no LaserOrigin ] -> [ NoLaser ]
+[    LaserOrigin ] -> [ YesLaser LaserOrigin ]
+[ no Happy ] -> [ NoHappy ]
+
+( redo the movements )
+[ stationary PlayerR PendingMove] -> [ right PlayerR ]
+[ stationary PlayerL PendingMove] -> [ left  PlayerL ]
+[ stationary PlayerU PendingMove] -> [ up    PlayerU ]
+[ stationary PlayerD PendingMove] -> [ down  PlayerD ]
+
+
+[ PendingMove ] -> []
+
+[ right Player ] -> [ right PlayerR ]
+[ left  Player ] -> [ left  PlayerL ]
+[ up    Player ] -> [ up    PlayerU ]
+[ down  Player ] -> [ down  PlayerD ]
+
+[ NotPlayerMoveTic ][ moving Player ] -> [ NotPlayerMoveTic ][ PendingMove stationary Player ]
+
+
+[ > Player | PlayerCanPush ] -> [ > Player | > PlayerCanPush ]
+[ > PlayerCanPush | Hat ] -> [ > PlayerCanPush | > Hat ]
+
+
+down [ElephantMoveTic][ FezL | Elephant ] -> [ElephantMoveTic][ left  FezL | left  ElephantL ]
+down [ElephantMoveTic][ FezR | Elephant ] -> [ElephantMoveTic][ right FezR | right ElephantR ]
+
+
+
+[ right Fez ] -> [ right FezR ]
+[ left  Fez ] -> [ left  FezL ]
+
+right [ right Fez | stationary Fez ] -> [ right Fez | stationary FezR ]
+left  [ left Fez  | stationary Fez ] -> [ left  Fez | stationary FezL ]
+
+[ ElephantPush ] -> []
+[ > Elephant | stationary ElephantCanPush ] -> [ > Elephant | ElephantPush > ElephantCanPush  ]
+
+
+[ ElephantPush > ElephantCanPush |  stationary ElephantCanPush no ElephantPush ] -> [ ElephantPush > ElephantCanPush | ElephantPush > ElephantCanPush ]
+
+[ right Elephant ] -> [ right ElephantR ]
+[ left  Elephant ] -> [ left ElephantL ]
+
+
+(Top Hat recover)
+
+right [ right TopHatD | no Collision ] -> [ TopHat | ElephantR ]
+left  [ left  TopHatD | no Collision ] -> [ TopHat | ElephantL ]
+
+
+(Top Hat magic)
+up [BeforePlayerMoveTic][ Elephant | TopHat ] -> [BeforePlayerMoveTic][ TopHatD | ]
+
+
+(Crown Stuff)
+late [ KingElephant ] -> []
+late up [TopLeft][ Elephant | Crown ] -> [TopLeft KingElephant][ Elephant| Crown ]
+
+late [ TopLeft no KingElephant ][ SensorOffD ] -> [ TopLeft ][ SensorD ]
+late [ TopLeft no KingElephant ][ SensorOffU ] -> [ TopLeft ][ SensorU ]
+late [ TopLeft    KingElephant ][ SensorD ] -> [ TopLeft KingElephant ][ SensorOffD ]
+late [ TopLeft    KingElephant ][ SensorU ] -> [ TopLeft KingElephant ][ SensorOffU ]
+
+
+
+(Laser stuff)
+late [ Laser ] -> []
+late [ BlockedLaser ] -> []
+startloop
+   late down [ LaserOriginD | no Collision no Laser ] -> [ LaserOriginD | LaserD ]
+   late down [ LaserOriginD | Collision no Laser ] -> [ LaserOriginD | Collision BlockedLaserU ]
+   late up   [ LaserOriginU | no Collision no Laser ] -> [ LaserOriginU | LaserU ]
+   late up   [ LaserOriginU | Collision no Laser ] -> [ LaserOriginU | Collision BlockedLaserD ]
+endloop
+
+late [ Player BlockedLaser no PlayerCaught ] -> [ PlayerCaught BlockedLaser ] sfx0
+
+
+(Win condition)
+late [ Happy ] -> []
+late up [ Elephant | PartyHat ] -> [ Happy Elephant | PartyHat ]
+late [ TopLeft ] -> [ TopLeft AllHappy ]
+late [ TopLeft AllHappy ][ Elephant No Happy ] -> [ TopLeft ][ Elephant ]
+late [ TopLeft AllHappy ][ TopHatD ] -> [ TopLeft ][ TopHatD ]
+late [ TopLeft AllHappy ][ PlayerCaught ] -> [ TopLeft ][ PlayerCaught ]
+late [ AllHappy ]  -> win
+
+
+(Decorative lates)
+late [ ElephantTail ] -> []
+late left  [ ElephantR | ] -> [ ElephantR | ElephantTailR ]
+late right  [ ElephantL | ] -> [ ElephantL | ElephantTailL ]
+
+
+late up   [ no Wall | Wall ] -> [ RugBorderU | Wall ]
+late down [ no Wall | Wall ] -> [ RugBorderD | Wall ]
+late left [ no Wall | Wall ] -> [ RugBorderL | Wall ]
+late right[ no Wall | Wall ] -> [ RugBorderR | Wall ]
+
+
+late [ Wall ] -> [ Wall WallU WallD WallR WallL ]
+late right [ WallR | Wall ] -> [ | Wall ]
+late left  [ WallL | Wall ] -> [ | Wall ]
+late up    [ WallU | Wall ] -> [ | Wall ]
+late down  [ WallD | Wall ] -> [ | Wall ]
+
+
+
+(appearance sound)
+late [ NoHat Hat     ] -> [ HatMovedHere Hat ]
+late [ NoCrate Crate ] -> [ CrateMovedHere Crate ]
+late [ NoLaser LaserOrigin ] -> [ LaserAppearedHere LaserOrigin ]
+late [ YesLaser No LaserOrigin ] -> [ LaserGoneFromHere ]
+late [ NoHappy Happy ] -> [ NewHappy Happy ]
+
+
+
+
+
+
+==============
+WINCONDITIONS
+==============
+
+
+
+=======
+LEVELS
+=======
+
+level_select_point (01)
+Message A game by Vexorian.
+
+(01)
+#######
+#.....#
+#p01l.#
+#.D...#
+###...#
+#######
+
+level_select_point (02)
+Message 02 - Don't trip the Human Alarm.
+
+########v###
+#..........#
+#..*..#..l.#
+#..####....#
+#...P......#
+#.###.02.*.#
+#..........#
+############
+
+level_select_point (03)
+Message 03 - There are other kinds of hats
+#######v###
+#.........#
+##>#<#....#
+#.........#
+#..r03....#
+#....p...*#
+#.........#
+###########
+
+level_select_point (04)
+Message 04 - Crates are kinda heavy and can be troublesome to push
+#####################
+######...############
+#...............#...#
+#....P...#...04.#...#
+##................###
+##.oo...L....oo.....#
+##.##.<.#...#*.##...#
+##......#...#..##...#
+#####################
+
+level_select_point (05)
+Message 05 - Work some magic.
+#######v###
+#.......*##
+#.05.p....#
+#...#.....#
+#..l..<...#
+#.......t.#
+#..########
+###########
+
+level_select_point (06)
+Message 06 - Sensors are disabled when the King is around.
+#################
+##06......###...#
+##....*.....#.P.#
+#..#####.....x..#
+#....*o.#A.l##..#
+#.r.....##......#
+#################
+
+level_select_point (07)
+Message 07 - The Magic Trick
+############
+####...#####
+#......#...#
+#....r.p.x.#
+##t#...#..*#
+##.v.......#
+##.....#.07#
+############
+
+level_select_point (08)
+Message 08 - One step back, two steps forward
+######################
+#....#vv#########....#
+#.08................*#
+#.................l..#
+#.....##.######.p....#
+#.o##.##.######...l.##
+##..#....#....#......#
+#...#.##t#.<<.#.##..*#
+#l*.#.#...<.<..<#....#
+#....##########....###
+#....##########..#####
+######################
+
+level_select_point (09)
+Message 09 - The Hat Collection
+#######vvv#####
+#.............#
+#......09..p..#
+#.r..t*.......#
+###..*<......##
+###.###AAA.x..#
+###..*.###.l..#
+##.r...###..###
+###############
+
+
+
+Message Kudos. Hope you had fun.
