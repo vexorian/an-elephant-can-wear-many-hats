@@ -1,10 +1,12 @@
-title An Elephant Can Wear Many Hats 0.48
+title An Elephant Can Wear Many Hats 1.49
 (Note always before sharing set SOUND_VOL to 0.05 in the HTML)
 ( Requires Pancelor's fork : https://pancelor.com/PuzzleScript/editor.html)
 
 (Note remember to thank Tilmann at discord for very usseful bug report.)
 author vexorian
 homepage vexorian.com
+
+again_interval 0.00
 
 
 background_color #000000
@@ -821,6 +823,7 @@ late [ YesLaser No LaserOrigin ] -> [ LaserGoneFromHere ]
 late [ NoHappy Happy ] -> [ NewHappy Happy ]
 
 
+[ NotPlayerMoveTic ][ PendingMove ] -> again
 
 
 
