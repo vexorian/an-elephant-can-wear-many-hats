@@ -1,4 +1,4 @@
-title An Elephant Can Wear Many Hats 1.49
+title An Elephant Can Wear Many Hats 2.57
 (Note always before sharing set SOUND_VOL to 0.05 in the HTML)
 ( Requires Pancelor's fork : https://pancelor.com/PuzzleScript/editor.html)
 
@@ -14,14 +14,14 @@ text_color       #EC8C95
 
 (debug)
 
-realtime_interval 0.033333
+realtime_interval 0.0333333
 (verbose_logging)
 noaction
 
 
 run_rules_on_level_start
 
-enable_level_select
+level_select
 
 
 (key_repeat_interval 0.15)
@@ -607,6 +607,8 @@ LaserAppearedHere create 27263108
 LaserGoneFromHere create 4462708
 NewHappy          create 53683103
 
+cancel 13852708
+
 ================
 COLLISIONLAYERS
 ================
@@ -653,7 +655,7 @@ RULES
 [ action Player ] -> [ Player ]
 
 
-[ moving PlayerCaught  ] -> [ stationary PlayerCaught  ] cancel sfx0
+[ moving PlayerCaught  ] ->  cancel
 
 
 [ Tic11 ][ ToBeAHat ] -> [ Tic11 ][ PartyHat ] checkpoint message An Elephant Can Wear Many Hats
@@ -742,10 +744,10 @@ right [ right Fez | stationary Fez ] -> [ right Fez | stationary FezR ]
 left  [ left Fez  | stationary Fez ] -> [ left  Fez | stationary FezL ]
 
 [ ElephantPush ] -> []
-[ > Elephant | stationary ElephantCanPush ] -> [ > Elephant | ElephantPush > ElephantCanPush  ]
+[ > Elephant | ElephantCanPush no ElephantPush ] -> [ > Elephant | ElephantPush > ElephantCanPush  ]
 
 
-[ ElephantPush > ElephantCanPush |  stationary ElephantCanPush no ElephantPush ] -> [ ElephantPush > ElephantCanPush | ElephantPush > ElephantCanPush ]
+[ ElephantPush > ElephantCanPush |  ElephantCanPush no ElephantPush ] -> [ ElephantPush > ElephantCanPush | ElephantPush > ElephantCanPush ]
 
 [ right Elephant ] -> [ right ElephantR ]
 [ left  Elephant ] -> [ left ElephantL ]
@@ -838,8 +840,11 @@ WINCONDITIONS
 LEVELS
 =======
 
-level_select_point (01)
+
+section 01 - Intro
+
 Message A game by Vexorian.
+
 
 (01)
 #######
@@ -849,7 +854,8 @@ Message A game by Vexorian.
 ###...#
 #######
 
-level_select_point (02)
+section 02 - Don't trip the Human Alarm.
+
 Message 02 - Don't trip the Human Alarm.
 
 ########v###
@@ -861,8 +867,10 @@ Message 02 - Don't trip the Human Alarm.
 #..........#
 ############
 
-level_select_point (03)
+section 03 - There are other kinds of hats
+
 Message 03 - There are other kinds of hats
+
 #######v###
 #.........#
 ##>#<#....#
@@ -872,8 +880,10 @@ Message 03 - There are other kinds of hats
 #.........#
 ###########
 
-level_select_point (04)
+section 04 - Crates are kinda heavy and can be troublesome to push
+
 Message 04 - Crates are kinda heavy and can be troublesome to push
+
 #####################
 ######...############
 #...............#...#
@@ -884,8 +894,12 @@ Message 04 - Crates are kinda heavy and can be troublesome to push
 ##......#...#..##...#
 #####################
 
-level_select_point (05)
+
+
 Message 05 - Work some magic.
+
+section 05 - Work some magic.
+
 #######v###
 #.......*##
 #.05.p....#
@@ -895,18 +909,24 @@ Message 05 - Work some magic.
 #..########
 ###########
 
-level_select_point (06)
-Message 06 - Sensors are disabled when the King is around.
-#################
-##06......###...#
-##....*.....#.P.#
-#..#####.....x..#
-#....*o.#A.l##..#
-#.r.....##......#
-#################
+section 06 - Sensors are disabled when the King is around.
 
-level_select_point (07)
-Message 07 - The Magic Trick
+Message 06 - Sensors are disabled when the King is around.
+
+################
+#########..#####
+##..#####......#
+##.........##..#
+##....*...##...#
+#..#####....x..#
+#....*o.#al06p.#
+#.r.....##.....#
+################
+
+message 07 - The Magic Trick
+
+section 07 - The Magic Trick
+
 ############
 ####...#####
 #......#...#
@@ -916,11 +936,28 @@ Message 07 - The Magic Trick
 ##.....#.07#
 ############
 
-level_select_point (08)
-Message 08 - One step back, two steps forward
+
+message 08 - Magic Duel
+
+section 08 - Magic Duel
+
+########
+###**###
+###....#
+#..08..#
+#.l..r.#
+#..ttp.#
+#......#
+########
+
+
+section 09 - One step back, two steps forward
+
+Message 09 - One step back, two steps forward
+
 ######################
 #....#vv#########....#
-#.08................*#
+#.09................*#
 #.................l..#
 #.....##.######.p....#
 #.o##.##.######...l.##
@@ -931,11 +968,32 @@ Message 08 - One step back, two steps forward
 #....##########..#####
 ######################
 
-level_select_point (09)
-Message 09 - The Hat Collection
+
+message 10 - Ups and downs
+
+section 10 - Ups and downs
+
+#vvvv############
+#.....10........#
+#.*...........x.#
+#.....r.......p.#
+#.*......r......#
+#.......####aa#.#
+#.....<*..t...#.#
+#aaaaa.#....r...#
+######.#####.####
+#.*......#...####
+#...l#.#...#.####
+#################
+
+
+Message 11 - The Hat Collection
+
+section 11 - The Hat Collection
+
 #######vvv#####
 #.............#
-#......09..p..#
+#......11..p..#
 #.r..t*.......#
 ###..*<......##
 ###.###AAA.x..#
